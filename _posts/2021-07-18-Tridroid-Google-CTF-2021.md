@@ -332,7 +332,8 @@ La fonction `push` ajoute simplement un élément au début de la liste.
 
 Cette fonction supprime simplement le premier élément de la liste :
 
-![](./images/pop.png)
+![](/assets/posts/2021-07-18-Tridroid-Google-CTF-2021/pop.png)
+
 
 #### modify
 
