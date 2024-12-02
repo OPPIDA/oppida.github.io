@@ -97,7 +97,7 @@ USB_S3Ri@l_1s_T0_3@sY
 ![](assets/posts/2024-07-17-Hardware-CTF/8.png)
 
 Cette phrase nous indique qu'il mapper les pins A0 sur **True** et A1 sur **False** :  
-<img src="assets/posts/2024-07-17-Hardware-CTF/9.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/9.png" alt="9" width="350" height="350" />
 
 
 ![](assets/posts/2024-07-17-Hardware-CTF/10.png)
@@ -251,7 +251,7 @@ SPI_1S_US3FU77
 
 Branchement donc sur le pin 10 
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/36.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/36.png" alt="36" width="350" height="350" />
 
 
 
@@ -276,11 +276,11 @@ C0UC0U_TU_V3UX_V0IR3_M0N_M0R53_?
 
 Lorsque l'on lance l'exercice 7 : 
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/39.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/39.png" alt="39" width="350" height="350" />
 
 Après de nombreuse manipulation, je comprend que si l'on mappe certain pin entre eux, le binaire change et donc le résultat en décimal change : 
 par exemple le CVV et la 4 :   
-<img src="assets/posts/2024-07-17-Hardware-CTF/40.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/40.png" alt="40" width="350" height="350" />
   
 ![](assets/posts/2024-07-17-Hardware-CTF/41.png)  
 l'exercice 7 nous fais comprendre par sa phrase : "Connais tu la réponse ultime ?" 
@@ -408,7 +408,7 @@ ThX_1_@m_50_Sa7i5f1ed_N0w_!
 
 ## Exercice c - Hide and seek 
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/51.png" width="550" height="550" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/51.png" alt="51" width="550" height="550" />
 
 Encore un hint du créateur qui nous dit : 
 ```à l'origine il fallait les passer au UV pour les effacer```
