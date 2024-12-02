@@ -30,7 +30,7 @@ Plusieurs devices sont possible pour heberger ce challenge, mais pour cet articl
 ![](assets/posts/2024-07-17-Hardware-CTF/1.png)
 
 ## Soudure  
-<img src="assets/posts/2024-07-17-Hardware-CTF/2.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/2.png" alt="2" width="350" height="350" />
 
 ## Flash + Accès au menu
 
@@ -79,7 +79,7 @@ Les trous qui appartiennent à une même ligne, sont reliés électriquement.
 
 > mise en place de l'ATmega32U4 sur la breadboard : 
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/44.png" width="550" height="550" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/44.png" alt="44" width="550" height="550" />
 
 ## ____________________________________________________________________
 
@@ -106,7 +106,7 @@ Le message : "Tu bluffes Martoni ! " apparait.
 Nous avons donc réussi à mapper les bon pins, mais le flag n'apparait pas.
 L'énoncé nous parle de série, avec un Analyseur logique, il faut écouter TX et RX : 
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/11.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/11.png" alt="11" width="350" height="350" />
 
 
 Lors de l'écoute, la capture permet de voir ceci : 
@@ -119,7 +119,7 @@ Calcul du Baudrate avec l'extention "Baud Rate Estimate "
 
 Ajustement de la configuration de l'analyse :
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/14.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/14.png" alt="14" width="350" height="350" />
 
 Le flag apparait en ASCII :  
 ![](assets/posts/2024-07-17-Hardware-CTF/15.png)
@@ -141,7 +141,7 @@ Le bus SPI utilise quatre signaux logiques :
 
  Dans la datasheet de l'ATemaga32 nous pouvons identifier les PINS du SPI : 
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/17.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/17.png" alt="17" width="350" height="350" />
 
 
 
@@ -167,7 +167,7 @@ si nous copions donc l'entiéreté des data du flux :
 ![](assets/posts/2024-07-17-Hardware-CTF/21.png)
 
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/22.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/22.png" alt="22" width="350" height="350" />
 
 Nous n'avons malheureusement pas encore le mot de passe pour ouvrir cette archive :( 
 peut être dans un futur exercice... 
@@ -211,7 +211,7 @@ L'échange est beaucoup plus important et l'on voit de la data passer :
 - Le câble SDA Maitre sur le SDA Escale (Data)
 - Le câble SCL Maitre sur le SCL Maitre (Clock)  
   
-<img src="assets/posts/2024-07-17-Hardware-CTF/31.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/31.png" alt="31" width="350" height="350" />
 
 Durant la capture : 
 
@@ -234,12 +234,12 @@ with open('output.gif', 'wb') as f:
 print("GIF sauvegardé dans > output.gif")
 ```
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/33.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/33.png" alt="33" width="350" height="350" />
 
 
 nous pouvons donc maintenant décoder notre archive 7z avec ce password : 
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/34.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/34.png" alt="34" width="350" height="350" />
 
 ```
 SPI_1S_US3FU77
@@ -288,9 +288,9 @@ qu'il attend le nombre 42 : Essayons donc de lui donner.
 
 Lorsqu'on mappe les pins : VCC + 3 
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/42.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/42.png" alt="42" width="350" height="350" />
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/43.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/43.png" alt="43" width="350" height="350" />
 
 ```
 The flag is :F33L_Th3_P0w3r_0f_B1n@rY
@@ -306,11 +306,11 @@ Quand vous êtes prêts, appuyer sur Entrer
 Menu :>
 ```
 Après analyse de tout les pins, seul, les pins de 0 à 7 sortent de la data.
-<img src="assets/posts/2024-07-17-Hardware-CTF/45.png" width="350" height="350" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/45.png" alt="45" width="350" height="350" />
 
 
 Branchement et analyse de cette data à l'aide de l'analyseur logique. 
-<img src="assets/posts/2024-07-17-Hardware-CTF/46.png" width="550" height="550" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/46.png" alt="46" alt="46" width="550" height="550" />
 
 Cela semble être du binaire classique (0 en bas, et 1 en haut)
 
@@ -321,13 +321,13 @@ Des fois c'est bien de changer de perspectives
 ```
 
 Si le sens de la capture change, et qu'on la regarde "d'une autre perspective" : 
-<img src="assets/posts/2024-07-17-Hardware-CTF/47.png" width="450" height="450" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/47.png" alt="47" width="450" height="450" />
 
 Le premier octet commence par : 01000100 => ce qui correspond à un D en ascii. 
 
 
 Extraction du flag en faisant ça sur toute la capture : 
-<img src="assets/posts/2024-07-17-Hardware-CTF/48.png" width="450" height="450" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/48.png" alt="48" width="450" height="450" />
 
 Extraction de toute la data : 
 ```
@@ -371,21 +371,21 @@ j'ai mis du temps avant de comprendre ce qu'il fallait faire pour cet exercice :
 
 L'idée est de regarder la datasheet et de voir que certain pin ne sont pas utilisé et non connecter a la carte.
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/54.png" width="450" height="450" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/54.png" alt="54" width="450" height="450" />
 
 il faut donc allez les toucher directement sur la puce avec un petit bout de papier humide (afin de faire contact mais sans faire de court circuit)
 Les pins non utilisé etant A4 / A5 
 Ces pins se situe la sur l'ATmega32u4 : (petit points verts)
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/55.png" width="450" height="450" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/55.png" alt="55" width="450" height="450" />
 
 Pour cet exos nos meilleurs amis seront un petit verre d'eau et un bout de papier : 
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/56.png" width="450" height="450" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/56.png" alt="56" alt="56" width="450" height="450" />
 
 
 bout de papier que l'on vient poser directement entre la pin A4 et A5 pour faire contact
-<img src="assets/posts/2024-07-17-Hardware-CTF/57.png" width="450" height="450" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/57.png" alt="57" width="450" height="450" />
 
 Sur notre terminal le nombre satisfaction monte en flèche jusqu'à ce que le flag apparaisse : 
 
@@ -494,11 +494,11 @@ Et ensuite l'envoyer par un moyen que je ne connait pas encore.
 Si c'est comme l'exercice 4 et 5, il faut un deuxième device qui va envoyer la data à notre premier. 
 Et vu que l'exercice stipule qu'il faut utiliser les 16 bits IO dans l'ordre croissant je fais un montage qui relie chaque pin de 1 à 16 du premier device au second comme ceci : 
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/52.png" width="550" height="550" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/52.png" alt="52" width="550" height="550" />
 
 Maintenant, l'atmega à droite écoute et celui de gauche envoie,lorsque j'envoie 2 octet en Hexa dans mon premier device, le deuxieme recupère bien mes données. 
 
-<img src="assets/posts/2024-07-17-Hardware-CTF/53.png" width="650" height="650" />
+<img src="assets/posts/2024-07-17-Hardware-CTF/53.png" alt="53" width="650" height="650" />
 
 je n'ai plus qu'a faire ca sur l'ensemble de ma chaine de charactère sha256 : 
 
