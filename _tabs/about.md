@@ -15,10 +15,6 @@ order: 4
   <li>Formation et sensibilisation</li>
 </ul>
 <h3>Contact</h3>
-        <strong>Email :</strong> <a href="mailto:contact@oppida.fr">contact@oppida.fr</a>
-    </div>
-    <div class="contact-info">
-        <strong>Téléphone :</strong> <a href="tel:+33130141900">+33 (0)1 30 14 19 00</a>
-    </div>
-    <div class="contact-info">
-        <strong>Adresse :</strong> <a href="https://www.google.com/maps/place/6+avenue+du+Vieil+Etang+-+Bâtiment+B+-+78180+Montigny-le-Bretonneux" target="_blank">6 avenue du Vieil Etang - Bâtiment B - 78180 Montigny-le-Bretonneux</a>
+    Email: contact@oppida.fr
+    Téléphone: +33 (0)1 30 14 19 00
+    Adresse 6 avenue du Vieil Etang - Bâtiment B - 78180 Montigny-le-Bretonneux
