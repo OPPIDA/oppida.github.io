@@ -17,4 +17,4 @@ order: 4
 <h3>Contact</h3>
     Email: contact@oppida.fr
     Téléphone: +33 (0)1 30 14 19 00
-    Adresse 6 avenue du Vieil Etang - Bâtiment B - 78180 Montigny-le-Bretonneux
+    Adresse :  6 avenue du Vieil Etang - Bâtiment B - 78180 Montigny-le-Bretonneux
