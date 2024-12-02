@@ -46,7 +46,7 @@ DbgPrintEx(0,0,"StackBase: 0x%p\nStackLimit: 0x%p\n",
     );
 // [...]
 ```
-In this piece of code, we retrieve the StackBase and StackLimit of the Process located in the [NT_TIB structure](http://terminus.rewolf.pl/terminus/structures/ntdll/_NT_TIB_x64.html) (which has the same offset as the [TEB](http://terminus.rewolf.pl/terminus/structures/ntdll/_TEB_x64.html))
+In this piece of code, we retrieve the StackBase and StackLimit of the Process located in the [NT_TIB structure](https://terminus.rewolf.pl/terminus/structures/ntdll/_NT_TIB_x64.html) (which has the same offset as the [TEB](https://terminus.rewolf.pl/terminus/structures/ntdll/_TEB_x64.html))
 
 By doing this, we encounter the same problem as WinDbg
 *(WinDbg implements the debug of the WOW64 process; which is why we have two TEB)*.
@@ -151,7 +151,7 @@ A significant amount of work has been dedicated to understanding and analyzing t
 
 - https://en.wikipedia.org/wiki/WoW64
 
-- http://terminus.rewolf.pl/terminus/
+- https://terminus.rewolf.pl/terminus/
 
 - https://github.com/mic101/windows/
 
