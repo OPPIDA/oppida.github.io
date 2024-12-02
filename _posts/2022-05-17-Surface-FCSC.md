@@ -75,8 +75,6 @@ Le but est de trouver deux côtés rationnels d'un triangle pour que l'aire soit
 
 Vous vous demandez peut-être quel est le rapport avec la cryptographie. La réponse est : Les courbes elliptiques !
 
-![](images/ellcurve.png)
-
 ### Résoudre le problème
 
 Je dois avouer que je n'ai trouvé la relation avec les courbes elliptiques qu'après plusieurs heures de recherche.
@@ -163,8 +161,6 @@ IntegralPoints(E);
 # [ <(-10239 : 0 : 1), 1>, <(0 : 0 : 1), 1>, <(10239 : 0 : 1), 1> ]
 ```
 Pas de crash, mais pas de résultats non plus... Même chose avec Pari/GP...
-
-![](images/sagemagma.png)
 
 Retour à la case départ !
 
