@@ -15,7 +15,7 @@ title_color: "#ffffff"
 	- [**Méthodologie**](#méthodologie)
 1. **Théorie**
 	- [**VMX**](#vmx)
-	- [**Opération VMX**](#operation-vmx)
+	- [**Opération VMX**](#Opération-VMX)
 	- [**Cycle VMM** ](#cycle-vmm)
 	- [**Virtual Machine Control Structure**](#virtual-machine-control-structure)
 	- [**Schéma**](#schéma)
@@ -64,7 +64,7 @@ Les **extensions de machine virtuelle**, définissent la prise en charge au nive
 - **Guest software :** Chaque machine virtuelle (VM) est un environnement **logiciel invité** (Guest software) qui prend en charge une pile composée d'un **système d'exploitation** (OS) et d'un **logiciel d'application**. Chaque machine virtuelle fonctionne indépendamment des autres machines virtuelles mais utilise la même interface avec le(s) **processeur(s)**, la **mémoire**, le stockage, les **graphiques** et les **I/O** fournis par la plateforme physique de l'hôte. La pile logicielle agit comme si elle fonctionnait sur une plateforme **sans VMM**. Les logiciels s'exécutant dans une machine virtuelle doivent fonctionner avec des **privilèges restreints/réduits** afin que **VMM** puisse conserver le contrôle des ressources de la plateforme.
 
 ---
-# Opération VMX
+# Opération-VMX
 
 La prise en charge de la virtualisation par le processeur est assurée par une forme d'opération du processeur appelée **VMX operation**.
 
