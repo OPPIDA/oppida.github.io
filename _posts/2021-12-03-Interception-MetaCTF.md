@@ -285,7 +285,7 @@ Comme nous devions traiter avec différents réseaux, la méthode d'empoisonneme
 
 Lorsque la victime envoie le flag au serveur, le paquet emprunte la route ci-dessous (représentée en rouge) :
 
-![](/assets/posts/2021-12-03-Interception-MetaCTF/original_path.png)
+![](/assets/posts/2021-12-03-Interception-MetaCTF/orig_poid.png)
 
 L'idée est donc de forcer tout le trafic du réseau de la victime à passer par notre routeur. Le flag empruntera donc la route suivante :  
 
