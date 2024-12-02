@@ -302,7 +302,7 @@ Enfin, l'article met en lumière l'opportunité d'appliquer des techniques de **
 [Intel® 64 and IA-32 Architectures Software Developer’s Manual Combined Volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4](https://cdrdv2.intel.com/v1/dl/getContent/671200)
 [OpenBSD - Virtualization](https://www.openbsd.org/faq/faq16.html)
 [OpenBSD - Anonymous CVS](https://www.openbsd.org/anoncvs.html#CVSROOT)
-[Man OpenBSD - log](http://man.openbsd.org/log.9)
+[Man OpenBSD - log](https://man.openbsd.org/log.9)
 [Man OpenBSD - release](https://man.openbsd.org/release)
 [Coverage-guided fuzzing](https://google.github.io/clusterfuzz/reference/coverage-guided-vs-blackbox/)
 
