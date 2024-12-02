@@ -15,7 +15,6 @@ order: 4
   <li>Formation et sensibilisation</li>
 </ul>
 <h3>Contact</h3>
-    <div class="contact-info">
         <strong>Email :</strong> <a href="mailto:contact@oppida.fr">contact@oppida.fr</a>
     </div>
     <div class="contact-info">
@@ -23,40 +22,3 @@ order: 4
     </div>
     <div class="contact-info">
         <strong>Adresse :</strong> <a href="https://www.google.com/maps/place/6+avenue+du+Vieil+Etang+-+Bâtiment+B+-+78180+Montigny-le-Bretonneux" target="_blank">6 avenue du Vieil Etang - Bâtiment B - 78180 Montigny-le-Bretonneux</a>
-    </div>
-<br>
-<br>
-
-<br>
-
-<a href="https://oppida.apave.com/" class="btn btn-green rounded">Qui sommes-nous</a>
-
-<style>
-/* Styles pour le lien bouton avec bordure ronde */
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  margin: 10px 0;
-  font-size: 16px;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.btn-green {
-  background-color: #28a745; /* Vert */
-}
-
-.btn-green:hover,
-.btn-green:focus {
-  background-color: #218838; /* Vert foncé au survol et au focus */
-  color: #fff; /* Assurer que le texte reste blanc */
-}
-
-.rounded {
-  border-radius: 25px;
-}
-</style>
