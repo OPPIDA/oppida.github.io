@@ -3,7 +3,7 @@ layout: post
 title: "NIS-questions-fréquentes"
 date: 2024-06-26
 categories: [Articles, Gouvernance]
-background_image: assets/gouv.jpg
+image: assets/gouv.jpg
 title_color: "#ffffff"
 ---
 

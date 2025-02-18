@@ -4,7 +4,7 @@ author: FPI
 title: "Filestore - Google CTF 2021"
 date: 2021-07-20
 categories: [CTF, Misc]
-background_image: assets/datacenter.jpg
+image: assets/datacenter.jpg
 title_color: "#ffffff"
 ---
 

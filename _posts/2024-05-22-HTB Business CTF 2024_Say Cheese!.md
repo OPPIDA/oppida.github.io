@@ -4,7 +4,7 @@ author: PLM
 title: "Say Chesse! - HTB Business CTF 2024 The Vault Of Hope"
 date: 2024-05-22
 categories: [CTF, Web]
-background_image: assets/cheese.jpg
+image: assets/cheese.jpg
 title_color: "#ffffff"
 ---
 

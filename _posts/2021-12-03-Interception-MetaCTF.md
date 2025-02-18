@@ -4,7 +4,7 @@ author: [FPI, ABE]
 title: "Interception - MetaCTF 2021"
 date: 2021-12-03
 categories: [CTF, Misc]
-background_image: assets/Tridroid-Banner.jpg
+image: assets/Tridroid-Banner.jpg
 title_color: "#ffffff"
 ---
 

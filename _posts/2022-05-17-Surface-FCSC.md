@@ -4,7 +4,7 @@ author: FPI
 title: "Surface - FCSC 2022"
 date: 2022-05-17
 categories: [CTF, Crypto]
-background_image: assets/zoneindus.jpg
+image: assets/zoneindus.jpg
 title_color: "#ffffff"
 ---
 

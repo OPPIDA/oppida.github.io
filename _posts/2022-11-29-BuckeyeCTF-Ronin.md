@@ -4,7 +4,7 @@ author: ABE
 title: "Ronin - BuckeyeCTF"
 date: 2022-11-29
 categories: [CTF, Pwn]
-background_image: assets/ronin.jpg
+image: assets/ronin.jpg
 title_color: "#ffffff"
 ---
 

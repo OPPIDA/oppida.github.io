@@ -4,7 +4,7 @@ author: [FPI, ABE]
 title: "Tridroid - Google CTF 2021"
 date: 2021-07-18
 categories: [CTF, Pwn]
-background_image: assets/Tridroid-Banner.jpg
+image: assets/Tridroid-Banner.jpg
 title_color: "#ffffff"
 ---
 

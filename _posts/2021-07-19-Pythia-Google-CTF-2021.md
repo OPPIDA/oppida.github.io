@@ -4,7 +4,7 @@ author: FPI
 title: "Pythia - Google CTF 2021"
 date: 2021-07-19
 categories: [CTF, Crypto]
-background_image: assets/aes-encryption.jpg
+image: assets/aes-encryption.jpg
 title_color: "#ffffff"
 ---
 

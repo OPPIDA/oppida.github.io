@@ -4,7 +4,7 @@ title: "Openbsd vmexit contrôlé"
 author: LBA
 date: 2024-06-25
 categories: [Articles, Reverse]
-background_image: assets/maxresdefault.jpg
+image: assets/maxresdefault.jpg
 title_color: "#ffffff"
 ---
 
