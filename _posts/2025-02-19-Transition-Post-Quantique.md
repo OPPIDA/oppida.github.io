@@ -150,7 +150,7 @@ Nous avons vu qu'il est fortement recommandé de déployer des algorithmes post-
 
 > *Phase 2 : l’ANSSI pourra délivrer des visas de sécurité assurant une sécurité à long terme pré-quantique et éventuellement post-quantique (toujours avec hybridation obligatoire)*
 
-> L'exception qui confirme la règle est la famille des signatures basées sur les fonctions de hachage. Celles-ci sont considérés éprouvées, et leur hybridation est facultative. C'est notamment le cas de [SLH-DSA](#slh-dsa).
+> L'exception qui confirme la règle est la famille des signatures basées sur les fonctions de hachage. Celles-ci sont considérées éprouvées, et leur hybridation est facultative. C'est notamment le cas de [SLH-DSA](#slh-dsa).
 {: .prompt-info}
 
 À long terme, une fois que les algorithmes auront été suffisamment éprouvés par l'usage, l'obligation d'hybridation devrait devenir optionnelle pour l'ANSSI :
