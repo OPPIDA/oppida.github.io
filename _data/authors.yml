@@ -6,9 +6,21 @@ BRO:
   name: Baptiste ROLANDO
   url: https://fr.linkedin.com/in/baptiste-rolando/
 
+CLE:
+  name: Corentin LE COZ
+  url: https://fr.linkedin.com/in/corentin-l-436783261
+
+CRYPTO:
+  name: CESTI Cryptographie
+  url: https://fr.linkedin.com/company/oppida
+
 DJO:
   name: Damien JOUINOT
   url: https://fr.linkedin.com/company/oppida
+
+ERI:
+  name: Etienne RICHARD
+  url: https://fr.linkedin.com/in/etienne-richard-/fr
 
 FPI:
   name: Florian PICCA
@@ -21,6 +33,10 @@ LBA:
 LLE:
   name: Lucien LEBAS
   url: https://fr.linkedin.com/in/lucien-lebas/
+
+PAN:
+  name: Pierre ANDOUCHE
+  url: https://fr.linkedin.com/in/pierre-andouche
 
 PLM:
   name: Pierre LE MAISTRE
