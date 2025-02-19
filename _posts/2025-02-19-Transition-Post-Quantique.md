@@ -105,7 +105,7 @@ Une première idée naïve serait de concaténer les deux clés symétriques pou
 
 ##### XOR 
 
-On peut essayer de corriger le problème du mode précédent en faisant un XOR entre les deux clés plutôt qu'une concaténation. En effet, cela résout le problème du mode précédent : il faut toujours trouver l'intégralité de la deuxième clé, si la première fuite, pour compromettre l'intégralité de la clé combinée. Le niveau de sécurité atteint par ce mode est cependant insuffisant à celui offert par les KEM utilisés et généralement considéré insuffisant ; il est en particulier vulnérable aux attaques adaptatives dites "Mix and Match".
+On peut essayer de corriger le problème du mode précédent en faisant un XOR entre les deux clés plutôt qu'une concaténation. En effet, cela résout le problème du mode précédent : il faut toujours trouver l'intégralité de la deuxième clé, si la première fuite, pour compromettre l'intégralité de la clé combinée. Le niveau de sécurité atteint par ce mode est cependant inférieur à celui offert par les KEM utilisés et généralement considéré insuffisant ; il est en particulier vulnérable aux attaques adaptatives dites "Mix and Match".
 
 > Réaliser une hybridation de façon sécurisée n'est donc pas complètement évident. Des modes offrant une meilleure sécurité, standardisés, et repris par l'ANSSI, sont présentés dans [un article séparé](/posts/Hybridation-Post-Quantique/).
 {: .prompt-tip }
