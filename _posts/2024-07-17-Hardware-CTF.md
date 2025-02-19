@@ -4,7 +4,7 @@ author: [PLM]
 title: "CTF - Hardware"
 date: 2024-07-17
 categories: [CTF, Hardware]
-image: assets/Tridroid-Banner.jpg
+image: assets/banner_hw.jpg
 title_color: "#ffffff"
 ---
 
