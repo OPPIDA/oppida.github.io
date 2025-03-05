@@ -1,10 +1,10 @@
 ---
-title: Désobfuscation de VM, l'approche exhaustive
+title: Désobfuscation de VM, une méthode générale
 date: 2025-03-04
 categories: [Articles, Reverse]
 tags: []
 comments: false
-description: Mise en oeuvre de désobfuscation de VM, en empruntant le chemin long mais exhaustif.
+description: Mise en oeuvre de désobfuscation de VM, en empruntant le chemin dur et long (mais général).
 author: [SBA]
 math: false
 image:
@@ -14,7 +14,6 @@ image:
 Quelle aproche un reverseur doit-il adopter face à un code obfusqué par la technique de la machine virtuelle (VM) ? Cette méthode d'obfuscation est parmi les plus avancées, et les plus difficiles à défaire, du moment. Ainsi, ce qui est généralement recommandé est autant que possible de refuser l'obstacle et de ne pas tenter de désobfusquer : vous éviterez de perdre des jours qui deviennent des semaines. Vous n'aurez alors plus à votre disposition que les méthodes d'analyse comportementales dont on espère qu'elles vous donneront les informations dont vous avez besoin. 
 
 Vous êtes encore là ? Nous en déduisons qu'une simple analyse comportementale n'a pas suffi à donner réponse à vos questions, et que vous êtes déterminés à en faire une analyse approfondie. 
-Par exemple, nous pourrions nous placer dans le cadre (fictif) d'une analyse de logiciel pour mobile, qui serait paré de protections de type RASP permettant la détection d'un environnement d'exécution émulé, ou rooté, ce qui rend très difficile l'analyse comportementale et dont les parties intéressantes (dont *bien sûr* celle implémentant la détection de l'environnement) seraient de surcroit protégées par VM.
 
 Comment donc se lancer dans une analyse de VM approfondie ? L'objectif final consiste à revenir au problème du reverse engineering habituel, c'est à dire à ce doter des outils usuels de reverse engineering : 
 - un désassembleur (pour lire le code)
@@ -24,22 +23,22 @@ Comment donc se lancer dans une analyse de VM approfondie ? L'objectif final con
 Une fois le temps investi pour créer ces outils, l'analyse revient à faire ce dont on a l'habiture en reverse engineering, simplement sur une architecture nouvelle.
 
 Voici une méthodologie globale :
-- Analyser statiquement la VM, [Tim Blazytko fournit un exemple de cette étape dans cette vidéo](https://www.youtube.com/watch?v=b6udPT79itk), notamment : 
+- 1) Analyser statiquement la VM, [Tim Blazytko fournit un exemple de cette étape dans cette vidéo](https://www.youtube.com/watch?v=b6udPT79itk), notamment : 
   - identifier la boucle Fetch-Decode-Execute
   - décrire la représentation des registres, stack, pointeurs d'instructions virtuels, etc. 
   - énumérer les méthodes de *hardening* de VM appliquées (plus de détails à la fin de l'article)
   - expliciter le jeu d'instructions (intruction set) implémenté par la VM, en particulier : 
     - identifier les OPcodes correspondant à chaque instruction
     - reverser chaque handler d'instruction
-- **écrire un assembleur et un désassembleur**
-- **écrire un émulateur, et y incorporer des éléments de débugger**
+- 2) **écrire un assembleur et un désassembleur**
+- 3) **écrire un émulateur, et y incorporer des éléments de débugger**
 
-Dans cet article, nous détaillerons **les deux dernières étapes**, en partant de l'exemple d'une obfuscation par VM simple (conçue pour un challenge du stand Oppida à l'ECW) pour un logiciel compilé pour une architecture ARM (comme pour l'exemple du logiciel mobile). Si vous voulez tenter de résoudre le challenge, vous pouvez télécharger le binaire ici : [LIEN CHALLENGE OPPIDA ECW]({{ site.url }}/assets/posts/2025-03-04-Desobfuscation-VM/challenge-oppida) . Ce binaire est conçu pour s'exécuter sur une RaspberryPi branchée sur une installation physique : considérez simplement que le challenge est résolu si la fonction main renvoie 0.
+Dans cet article, nous détaillerons **les deux dernières étapes**, en partant de l'exemple d'une obfuscation par VM simple conçue pour un challenge du stand Oppida à l'ECW.
 
-Nous fournissons un **exemple d'implémentation des outils d'analyse** pour cette VM spécifique, afin que vous puissiez adapter la méthodologie et / ou le code à votre cas.
+## Le cas d'étude : Challenge d'Oppida sur le stand de l'European Cyber Week.
+A titre d'**exemple d'implémentation des outils d'analyse**, nous mettons en oeuvre la méthodologie décrite par l'article sur un challenge créé par Oppida. C'est un logiciel obfusqué par VM compilé pour une architecture ARM. Si vous voulez tenter de résoudre le challenge, vous pouvez télécharger le binaire ici : [LIEN CHALLENGE OPPIDA ECW]({{ site.url }}/assets/posts/2025-03-04-Desobfuscation-VM/challenge-oppida). Ce binaire est conçu pour s'exécuter sur une RaspberryPi branchée sur une installation physique : considérez simplement que le challenge est résolu si la fonction main renvoie 0.
 
-## Description rapide de la VM ciblée
-Nous allons passer très rapidement sur les deux premières étapes. Il s'agit de faire une analyse statique (puisque c'est la seule technique à notre disposition à cette étape) du fonctionnement interne de la VM.
+Nous allons passer très rapidement sur l'étape 1) d'analyse initiale . Il s'agit de faire une analyse statique (puisque c'est la seule technique à notre disposition à cette étape) du fonctionnement interne de la VM.
 
 ### Analyse initiale : identification des éléments de la VM et rétroconception des handlers
 On identifie la fonction qui implémente la boucle *Fetch-Decode-Execute* (FDE) de la VM :
@@ -258,7 +257,7 @@ lab lab_35
 ```
 *Résultat 2*
 
-Une autre possibilité est d'implémenter un [Processor IDA Pro](https://hex-rays.com/blog/scriptable-processor-modules/) pour intégrer la nouvelle architecture à l'outil. La tâche compliquée mais [quelques](https://blog.quarkslab.com/ida-processor-module.html) [blogposts](https://wuffs.org/blog/mouse-adventures-part-7) ont débroussaillé le travail. Cela permet de profiter de tous les avantages qu'offre IDA, et en premier lieu, l'affichage en graphe des blocs du désassemblé.
+Une autre possibilité est d'implémenter un [Processor IDA Pro](https://hex-rays.com/blog/scriptable-processor-modules/) pour intégrer la nouvelle architecture à l'outil. La tâche est compliquée mais [quelques](https://blog.quarkslab.com/ida-processor-module.html) [blogposts](https://wuffs.org/blog/mouse-adventures-part-7) ont débroussaillé le travail. Cela permet de profiter de tous les avantages qu'offre IDA, et en premier lieu, l'affichage en graphe des blocs du désassemblé.
 
 ### Assembleur
 Créer un assembleur pourrait *a priori* sembler superflu, puisque l'objectif du reverseur est la lecture du code et non son écriture. Toutefois, on se rend vite compte qu'avoir la possibilité de modifier un code est primordiale pour l'analyse, en particulier lorsque des mécanismes de défense contre l'analyse dynamique ou comportementale sont présents. Réécrire le code permet alors de les contourner.
