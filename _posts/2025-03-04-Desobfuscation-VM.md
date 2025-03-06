@@ -13,9 +13,9 @@ image:
 
 Quelle aproche un reverseur doit-il adopter face à un code obfusqué par la technique de la machine virtuelle (VM) ? Cette méthode d'obfuscation est parmi les plus avancées, et les plus difficiles à défaire, du moment. Ainsi, ce qui est généralement recommandé est autant que possible de refuser l'obstacle et de ne pas tenter de désobfusquer : vous éviterez de perdre des jours qui deviennent des semaines. Vous n'aurez alors plus à votre disposition que les méthodes d'analyse comportementales dont on espère qu'elles vous donneront les informations dont vous avez besoin. 
 
-Vous êtes encore là ? Nous en déduisons qu'une simple analyse comportementale n'a pas suffi à donner réponse à vos questions, et que vous êtes déterminés à en faire une analyse approfondie. 
+Vous êtes encore là ? Nous en déduisons qu'une simple analyse comportementale n'a pas suffi à donner réponse à vos questions, et que vous êtes déterminés à faire une analyse approfondie. 
 
-Comment donc se lancer dans une analyse de VM approfondie ? L'objectif final consiste à revenir au problème du reverse engineering habituel, c'est à dire à ce doter des outils usuels de reverse engineering : 
+Comment donc se lancer dans une analyse de VM approfondie ? L'objectif final consiste à revenir au problème du reverse engineering habituel, c'est à dire à se doter des outils usuels de reverse engineering : 
 - un désassembleur (pour lire le code)
 - un assembleur (pour le modifier)
 - un débugger (pour l'analyse dynamique). 
@@ -43,7 +43,7 @@ Nous allons passer très rapidement sur l'étape 1) d'analyse initiale . Il s'ag
 ### Analyse initiale : identification des éléments de la VM et rétroconception des handlers
 On identifie la fonction qui implémente la boucle *Fetch-Decode-Execute* (FDE) de la VM :
 ![FDE_loop](assets/posts/2025-03-04-Desobfuscation-VM/FDE_loop.PNG)
-- Le *Decode* est implémenté en tant que switch-case sur la valeur pointée par `r3`, avec l'offset contenu en  @[0x13228]. `r3`contient donc l'adresse du bytecode et @[0x13228] le pointeur d'instruction virtuel !
+- Le *Decode* est implémenté en tant que switch-case sur la valeur pointée par `r3`, avec l'offset contenu en  @[0x13228]. `r3` contient donc l'adresse du bytecode et @[0x13228] le pointeur d'instruction virtuel !
 ![switch_case](assets/posts/2025-03-04-Desobfuscation-VM/switch_case.PNG)
     
 On identifie de la même manière les autres éléments de la VM (stack virtuelle, stack pointer virtuel, registres virtuels, etc.)
@@ -55,7 +55,7 @@ Après avoir reversé chaque handler, nous avons tous les éléments permettant 
 ## Création de l'assembleur et désassembleur
 ### analyse détaillée du jeu d'instructions
 La première étape pour écrire un assembleur et désassembleur est d'avoir une connaissance aussi fine et complète possible du jeu d'instructions. 
-Les informations minimales à obtennir lors du reverse des handlers sont l'OPcode, la sémantique (même approximative), et les arguments (leur taille, type et rôle) de chaque instruction. Nous avons représenté ces informations dans un dictionnaire python : 
+Les informations minimales à obtenir lors du reverse des handlers sont l'OPcode, la sémantique (même approximative), et les arguments (leur taille, type et rôle) de chaque instruction. Nous avons représenté ces informations dans un dictionnaire python : 
 
 ```python
 opcodes = {
@@ -89,7 +89,7 @@ registers = {"r0":0, "r1":1, "r2":2, "r3":3, "r4":4, "r5":5, "r6":6, "r7":7}
 Comme toutes les architectures de VMs servant à l'obfuscation, celle-ci présente des aspects étranges. On peut noter : 
 - l'absence d'instructions permettant des opérations algébriques (+, -, *)
 - l'utilisation d'une seule instruction pour toutes les opérations logiques (l'opération est précisée en argument)
-- l'utilisation à la fois de registres et d'une stack
+- l'utilisation à la fois de registres et d'une stack (beaucoup de VMs logicielles n'utilisent qu'un des deux)
 
 Il est aussi utile de créer les distionaires inverses (où la clé n'est pas le nom (ou mnémonique) de l'instruction mais son opcode).
 
@@ -109,7 +109,7 @@ for register_name in registers.keys():
 *Code 2*
 
 ### Désassembleur
-L'élément le plus essentiel à construire est le désassembleur. Il s'agit de parcourir le bytecode en identifiant chaque instruction et ses arguments
+L'élément le plus essentiel à construire est le désassembleur. Il s'agit de parcourir le bytecode en identifiant chaque instruction et ses arguments.
 
 ```python
 def disassemble(bytecode):
@@ -173,7 +173,7 @@ line offset instruction
 ```
 *Résultat 1*
 
-Le désassemblé est satisfaisant... à l'exception des instructions `jump` et `call` qui prennent comme arguments des offsets dans le code : il serait mieux d'avoir des labels afin de bien visualiser les destinations. Pour cela, on ajoute une simple fonction qui résoud les adresses de destination des `jump` et `call`, et on insère les labels qui vont bien.
+Le désassemblé est satisfaisant... à l'exception des instructions `jump` et `call` qui prennent comme arguments des offsets dans le code : il serait mieux d'avoir des labels afin de bien visualiser les destinations. Pour cela, on ajoute une simple fonction qui résout les adresses de destination des `jump` et `call`, et on insère les labels qui vont bien.
 
 ```python
 def resolve_jump_lines(disassembly):
@@ -257,16 +257,16 @@ lab lab_35
 ```
 *Résultat 2*
 
-Une autre possibilité est d'implémenter un [Processor IDA Pro](https://hex-rays.com/blog/scriptable-processor-modules/) pour intégrer la nouvelle architecture à l'outil. La tâche est compliquée mais [quelques](https://blog.quarkslab.com/ida-processor-module.html) [blogposts](https://wuffs.org/blog/mouse-adventures-part-7) ont débroussaillé le travail. Cela permet de profiter de tous les avantages qu'offre IDA, et en premier lieu, l'affichage en graphe des blocs du désassemblé.
+Une autre possibilité est d'implémenter un [Processor IDA Pro](https://hex-rays.com/blog/scriptable-processor-modules/) pour intégrer la nouvelle architecture à l'outil. La tâche est compliquée mais [quelques](https://blog.quarkslab.com/ida-processor-module.html) [blogposts](https://wuffs.org/blog/mouse-adventures-part-7) ont débroussaillé le travail. Cela permet de profiter de tous les avantages qu'offre IDA, et en premier lieu, de l'affichage en graphe des blocs du désassemblé.
 
 ### Assembleur
-Créer un assembleur pourrait *a priori* sembler superflu, puisque l'objectif du reverseur est la lecture du code et non son écriture. Toutefois, on se rend vite compte qu'avoir la possibilité de modifier un code est primordiale pour l'analyse, en particulier lorsque des mécanismes de défense contre l'analyse dynamique ou comportementale sont présents. Réécrire le code permet alors de les contourner.
+Créer un assembleur pourrait *a priori* sembler superflu, puisque l'objectif du reverseur est la lecture du code et non son écriture. Toutefois, on se rend vite compte du fait qu'avoir la possibilité de modifier un code est primordiale pour l'analyse, en particulier lorsque des mécanismes de défense contre l'analyse dynamique ou comportementale sont présents. Réécrire le code permet alors de les contourner.
 
 L'assembleur implémente le mécanisme opposé au désassembleur : 
 - on commence par enlever les commentaires, lignes vides, etc.
 - on enlève les labels et on les remplace par des numéros de ligne
 - on assemble chaque ligne de code
-- on résoud les adresses des jumps
+- on résout les adresses des jumps
 
 ```python
 def assemble(assembly):
@@ -387,17 +387,17 @@ lab main
 ```
 *Résultat 3*
 
-On obtient un binaire, que l'on peut désassembler pour vérifier (cf *Résultat 2*)
+On obtient un binaire, que l'on peut désassembler pour vérifier (cf *Résultat 2*).
 
 ## Environnement d'exécution
 A ce stade, nous disposons des outils nécessaires à l'analyse statique et comportementale du code obfusqué, mais manque à notre arsenal l'analyse dynamique, méthode incontournable !
 
 Pour qu'un outil permette l'analyse dynamique, le minimum syndical est qu'il dispose des fonctionnalités suivantes :
 - capture des traces d'exécution
-- lecture / écriture de la mémoire et des registres
 - mise en place de breakpoints
+- lecture / écriture de la mémoire et des registres
 
-La VM étant elle-même compilée pour une architecture ARM, nous allons émuler son exécution grâce à MIASM. La fonctionnalité *Sandbox* de MIASM permet d'éviter d'écrire une majorité du code *boilerplate*. La sandbox MIASM récupère les arguments passés au programme python : il faut le lancer avec `python environnement_exec.py -a $adresse_initiale binaire` où :
+Notre VM d'exemple étant elle-même compilée pour une architecture ARM, nous allons émuler son exécution grâce à MIASM. La fonctionnalité *Sandbox* de MIASM permet d'éviter d'écrire une majorité du code *boilerplate*. La sandbox MIASM récupère les arguments passés au programme python : il faut le lancer avec `python environnement_exec.py -a $adresse_initiale $binaire` où :
 - `environnement_exec.py` est le programme python qui suit
 - `$adresse_initiale` a pour valeur le point d'entrée désiré (pour nous le début de la fonction implémentant la VM)
 - `binaire` est le binaire obfusqué.
@@ -442,7 +442,7 @@ sb.jitter.vm.set_mem(0x1322c, 0x400.to_bytes(4, "little"))
 ```
 *Code 8*
 
-On peut ensuite lancer l'exécution de la VM ! Un breakpoint stratégiquement placé dans la boucle *Fetch-Decode-Execute* (au moment du *Fetch*) permet de récupérer la main avant l'exécution de chaque instruction. La fonction `do_each_loop(jitter)` sera exécutée à chaque levée de ce breakpoint, donc pour chaque exécution d'une instruction de la VM.
+On peut ensuite lancer l'exécution de la VM ! Un breakpoint MIASM stratégiquement placé dans la boucle *Fetch-Decode-Execute* (au moment du *Fetch*) permet de récupérer la main avant l'exécution de chaque instruction. La fonction `do_each_loop(jitter)` sera exécutée à chaque levée de ce breakpoint, donc pour chaque exécution d'une instruction de la VM.
 
 ```python
 # break on start of vm loop
@@ -667,32 +667,32 @@ add breakpoint (b), read value (r), write value(w), go (go) ?
 *Résultat 5*
 
 ## Conclusion
-Avec ces outils, un reverseur peut déployer sa méthodologie habituelle pour analyser le bytecode de la VM, avec malgré tout la difficulté supplémentaire de l'architecture nouvelle. Il peut lire, écrire le bytecode, et l'exécuter avec une instrumentation minimale .
+Avec ces outils, un reverseur peut déployer sa méthodologie habituelle pour analyser le bytecode de la VM, avec toutefois la difficulté supplémentaire de l'architecture nouvelle. Il peut lire, écrire le bytecode, et l'exécuter avec une instrumentation minimale.
 
-Le travail pour la mise en place des outils est conséquent, mais c'est l'unique méthode qui permette d'effectuer un réel travail de rétro-conception, et donc de défaire l'obfuscation par VM. Il faut donc être certain que l'analyse approfondie soit effectivement indispensable ! 
+Le travail pour la mise en place des outils est conséquent, mais cette méthode permet d'effectuer un réel travail de rétro-conception, et donc de défaire l'obfuscation par VM. Il faut donc être certain que l'analyse approfondie soit effectivement indispensable ! 
 
 ### Pour aller plus loin : VMs *hardenées*
 Vous vous en êtes rendus compte : la VM utilisée dans cette obfuscation est très simple. Dans la vraie vie, les obfuscations par VM sont bien plus méchantes. Pour finir, nous allons donc exposer certaintes méthodes de *hardening* de VM.
 
 #### Ajout de difficultés dans le reverse de la VM
-Cette catégories de *hardenings* de VMs consistent à puiser dans d'autres méthodes d'obfuscation pour rendre difficile la première étape, l'analyse statique de la VM. 
+Cette catégorie de *hardenings* de VMs consiste à puiser dans d'autres méthodes d'obfuscation pour rendre difficile la première étape, l'analyse statique de la VM. 
 
 Parmi ces méthodes, on peut compter : 
 - la multiplication des instructions et des handlers (et donc la multiplication du travail de reverse)
 - obfuscation des handlers
-- obfuscation des la boucle FDE
+- obfuscation de la boucle FDE
 
 Ces techniques ont pour objectif de ralentir l'analyse initiale de la VM, et bien qu'elles donnent beaucoup de travail au reverseur, elles ne remettent pas fondamentalement en question la méthodologie présentée ici : il faudra simplement utiliser d'autres méthodes de désobfuscation à l'étape d'analyse statique.
 
 #### Inlining du décodeur ou *threaded code* ***
 Le *threaded code* consiste à ne plus utiliser de boucle FDE qui centralise l'exécution de la VM, mais à ajouter une unique itération de FDE à la fin de chaque handler, c'est donc chaque handler qui appelle le suivant, sans repasser par une étape commune ! Autrement dit, le FDE est dupliqué autant de fois qu'il y a d'instructions.
 
-Là ce se complique : on ne peut pas mettre notre breakpoint émulateur au du FDE. Malgré tout, l'adaptation reste simple, il suffit de mettre un breakpoint à la fin chaque instruction, dans l'unique itération du FDE. La méthode est brutale, mais on n'est pas limités en breakpoints dans n émulateur...
+Là ça se complique : on ne peut pas mettre notre breakpoint émulateur dans la boucle FDE. Malgré tout, l'adaptation reste simple, il suffit de mettre un breakpoint à la fin chaque instruction, dans l'unique itération du FDE. La méthode est brutale, mais on n'est pas limité en breakpoints dans un émulateur...
 
 #### Chiffrement du bytecode dépendant du flot d'exécution
 Cette méthode d'obfuscation n'est implémentée que dans les VMs les plus difficiles. Si vous la rencontrez, c'est que le développeur n'a vraiment, mais alors vraiment pas envie que vous rétroconceviez son code.
 
-La méthode consiste à ce que le bytecode lui-même soit chiffré, et que le déchiffrement se fasse *just-in-time*. Chaque handler d'instruction contient alors à la fin de son code une routine de déchiffrement, dont il se sera pour déchiffrer uniquement l'instruction suivante, avec une clé qui dépend de l'exécution (l'instruction précédente, ses paramètres, etc.).
+La méthode consiste à ce que le bytecode lui-même soit chiffré, et que le déchiffrement se fasse *just-in-time*. Chaque handler d'instruction contient alors à la fin de son code une routine de déchiffrement, dont il se servira pour déchiffrer uniquement l'instruction suivante, avec une clé qui dépend de l'exécution (l'instruction précédente, ses paramètres, etc.).
 
 La bonne nouvelle, c'est que la réalisation d'une trace d'exécution telle qu'on l'a mise en place plus haut n'est pas ou peu affectée. C'est toutefois la seule bonne nouvelle. En effet : 
 - Le désassemblage devient très difficile, et a probablement besoin d'une trace d'exécution afin de posséder les clés de déchiffrement de chaque instruction dans le bytecode
