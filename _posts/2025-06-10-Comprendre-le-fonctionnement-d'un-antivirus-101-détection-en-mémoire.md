@@ -1,3 +1,13 @@
+---
+layout: post
+author: [DJO, SSY, PLA, NDU]
+title: "Comprendre le fonctionnement d'un antivirus 101 - détection en mémoire"
+date: 2025-06-10
+categories: [Articles, AD]
+image: assets/Tridroid-Banner.jpg
+title_color: "#ffffff"
+---
+
 # Comprendre le fonctionnement d'un antivirus 101 - détection en mémoire
 
 Cet article vient en complément du premier et vient cette fois aborder le composant "AMSI", clé dans la détection de menaces en mémoire.
