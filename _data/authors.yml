@@ -1,10 +1,10 @@
 ABE:
   name: Aldric BERTHET
-  url: https://www.linkedin.com/in/aldric-b-19b0a9168/
+  url: https://www.linkedin.com/in/aldric-b-19b0a9168
 
 BRO:
   name: Baptiste ROLANDO
-  url: https://fr.linkedin.com/in/baptiste-rolando/
+  url: https://fr.linkedin.com/in/baptiste-rolando
 
 CLE:
   name: Corentin LE COZ
@@ -24,15 +24,15 @@ ERI:
 
 FPI:
   name: Florian PICCA
-  url: https://www.linkedin.com/in/florian-picca-b90328120/
+  url: https://www.linkedin.com/in/florian-picca-b90328120
 
 LBA:
   name: Louis BALASSE
-  url: https://fr.linkedin.com/in/louis-balasse/
+  url: https://fr.linkedin.com/in/louis-balasse
 
 LLE:
   name: Lucien LEBAS
-  url: https://fr.linkedin.com/in/lucien-lebas/
+  url: https://fr.linkedin.com/in/lucien-lebas
 
 PAN:
   name: Pierre ANDOUCHE
@@ -40,7 +40,15 @@ PAN:
 
 PLM:
   name: Pierre LE MAISTRE
-  url: https://fr.linkedin.com/in/pierre-le-maistre-32628a244/
+  url: https://fr.linkedin.com/in/pierre-le-maistre-32628a244
+
+PLA:
+  name: Pierre LAMARRE
+  url: https://fr.linkedin.com/in/pierre-lamarre-86a575159
+
+SSY: 
+  name: Somphon SY
+  url: https://fr.linkedin.com/in/somphon-sy
 
 SBA:
   name: Stepan BARRAU
