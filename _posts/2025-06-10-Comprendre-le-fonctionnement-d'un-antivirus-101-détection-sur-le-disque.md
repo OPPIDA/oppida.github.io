@@ -1,6 +1,6 @@
 ---
 layout: post
-author: [DJO, SSY, PLA]
+author: [DJO, SSY, PLA, NDU]
 title: "Comprendre le fonctionnement d'un antivirus 101 - détection sur le disque"
 date: 2025-06-10
 categories: [Articles, AD]
