@@ -52,7 +52,7 @@ Pour chacun d'entre eux, le processus décrit dans la partie précédente s'appl
 
 Lorsqu'on analyse les modules chargés en mémoire par le processus, on constate bien la présence de la DLL amsi.dll. L'antivirus recevra donc la mémoire du processus Powershell récupérée par amsi.dll via les fonctions `ÀmsiScanBuffer` et `ÀmsiScanString`.
 
-![image-20241128181629731](./amsi.assets/image-20241128181629731.png)
+![image-20241128181629731](/assets/posts/AV/image-20241128181629731.png)
 
 ## 2. Comment contourner l'AMSI
 
@@ -293,11 +293,11 @@ En plaçant un point d'arrêt sur la fonction `AmsiScanBuffer`, on peut observer
 
 => Voici la liste d'appel pour une exécution classique de commande dans la console Powershell :
 
-![image-20250130225121151](./amsi.assets/image-20250130225121151.png)
+![image-20250130225121151](/assets/posts/AV/image-20250130225121151.png)
 
 => Voici la liste d'appel pour une exécution d'un programme DOTNET en mémoire dans la console powershell :
 
-![image-20250130225926803](./amsi.assets/image-20250130225926803.png)
+![image-20250130225926803](/assets/posts/AV/image-20250130225926803.png)
 
 Le module CLR , qui est le moteur d'exécution du framework **.NET**, fait appel à la fonctionnalité AmsiScan. 
 
@@ -307,35 +307,35 @@ En analysant l'instruction qui appelle la fonction AmsiScanBuffer, on se rend co
 
 Juste avant cet appel,une instruction est réalisée pour déplacer le contenu d'un pointeur qui contient l'adresse de la fonction `amsi!AmsiScanBuffer` vers le registre RAX afin que la fonction. 
 
-![image-20250130231107226](./amsi.assets/image-20250130231107226.png)
+![image-20250130231107226](/assets/posts/AV/image-20250130231107226.png)
 
 En vérifiant le contenu de cette adresse nous pouvons observer la présence du pointeur vers la fonction `amsi!AmsiScanBuffer`.
 
-![image-20250130231206786](./amsi.assets/image-20250130231206786.png)
+![image-20250130231206786](/assets/posts/AV/image-20250130231206786.png)
 
 En analysant la protection mémoire de l'adresse, on remarque que l'adresse des pointeurs font bien partie de la dll `clr.dll` et qu'il est possible d'écrire sur les pointeurs car leur protection est en `PAGE_READWRITE`. 
 
-![image-20250130231803546](./amsi.assets/image-20250130231803546.png)
+![image-20250130231803546](/assets/posts/AV/image-20250130231803546.png)
 
 Pour outrepasser l'AMSI dans l’exécution en mémoire d'un exécutable .net, il faudrait alors modifier en mémoire l'adresse contenant les pointeurs vers la fonction amsiScanBuffer dans la dll `clr.dll` et la remplacer par une vraie fonction qui ne retourne rien, par exemple pour contourner la fonction `_guard_dispatch_icall_fptr` . 
 
 Lorsque l'on exécute notre Rubeus en mémoire nous avons l'erreur suivante, signe que l'AMSI est bien présent lors de l’exécution en mémoire.
 
-![image-20250203105351527](./amsi.assets/image-20250203105351527.png)
+![image-20250203105351527](/assets/posts/AV/image-20250203105351527.png)
 
 Le code du POC n'est pas fourni mais voici l'exécution du bypass pour remplacer les pointeurs de la fonction `amsi!AmsiScanBuffer` avec une fonction factice dans la mémoire de la dll `clr.dll`. 
 
-![image-20250203105418712](./amsi.assets/image-20250203105418712.png)
+![image-20250203105418712](/assets/posts/AV/image-20250203105418712.png)
 
 Il est maintenant possible d'exécuter Rubeus en mémoire.
 
-![image-20250203110943509](./amsi.assets/image-20250203110943509.png)
+![image-20250203110943509](/assets/posts/AV/image-20250203110943509.png)
 
 Cependant, même en exécutant le script en mémoire, nous rencontrons un nouveau problème : notre PowerShell est interrompu par Defender en raison d'un comportement suspect. 
 
 Cela confirme que nous avons bien contourné l'AMSI et sa détection statique.
 
-![image-20250203110217958](./amsi.assets/image-20250203110217958.png)
+![image-20250203110217958](/assets/posts/AV/image-20250203110217958.png)
 
 
 
