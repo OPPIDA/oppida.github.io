@@ -4,7 +4,7 @@ author: [DJO, SSY, PLA, NDU]
 title: "Comprendre le fonctionnement d'un antivirus 101 - détection en mémoire"
 date: 2025-06-10
 categories: [Articles, AD]
-image: assets/Tridroid-Banner.jpg
+image: assets/AV.jpg
 title_color: "#ffffff"
 ---
 
