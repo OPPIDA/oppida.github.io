@@ -30,16 +30,14 @@ L'application cible à notre disposition est relativement volumineuse au regard 
 * Code d'erreur : KERN_INVALID_ADDRESS at 0x0000000000000000
 
 ![log_crash](assets/posts/IOS/log_crash.png)
-
-_<div style="text-align: center;">Extrait du fichier des journaux de crash_</div>
+_Extrait du fichier des journaux de crash_
 
 Il apparaît que l'application a tenté d'accéder à l'adresse mémoire `0x00`, une pratique couramment utilisée par les applications pour terminer leur exécution. Le programme tente délibérément d'écrire dans des zones de mémoire incorrectes.
 
 De plus, une analyse dynamique des logs systèmes est effectuée. On remarquer que l'application vérifie la présence de fichiers liés au jailbreak.
 
 ![image-20250507151756144](assets/posts/IOS/log-jb.png)
-
-_<div style="text-align: center;">Extrait de logs_</div>
+_Extrait de logs_
 
 On peut en conclure que l’application embarque des mécanismes spécifiques destinés à détecter et à réagir à un environnement jailbreaké. Cependant, les logs ne fournissent qu'un très petit échantillon des éléments véritablement vérifié par l'application pour détecter le jailbreak.
 
@@ -50,8 +48,7 @@ Afin de mieux cerner la nature de l’application et d’identifier les protecti
 La plupart des méthodes et chaines de caractères du programmes sont chiffrées, ce qui empêche d'identifier les fonctions sensibles et d'intérêt.
 
 ![image-20250514101715116](assets/posts/IOS/methodes.png)
-
-_<div style="text-align: center;">Analyse des méthodes avec l'outil pagestuff_</div>
+_Analyse des méthodes avec l'outil pagestuff_
 
 Ces chaines sont déchiffrées à la volée uniquement au moment de leurs utilisations. Le binaire ne révèle aucune chaîne intéressante pouvant nous aider à identifier les mécanismes de détection de jailbreak.
 
@@ -64,8 +61,7 @@ En analysant le code de l'application, il a été possible d'identifier certaine
 Comme pour la plupart des détections de jailbreak, une première étape consiste en la vérification de la présence d'un fichier, effectuée à l'aide de la fonction `fopen()`.
 
 ![fopen2](assets/posts/IOS/fopen2.PNG)
-
-_<div style="text-align: center;">Utilisation de fopen() pour détecter le jailbreak_</div>
+_Utilisation de fopen() pour détecter le jailbreak_
 
 En effet, la valeur `&DAT_10367eda0` pointe vers une chaine de caractère correspondant à l'argument `r` du fopen(). 
 
@@ -74,8 +70,7 @@ Quant à la valeur `&DAT_10369c828`, elle correspond au chemin de fichier que le
 Ce schéma de détection se répète de manière récurrente dans le code. Il est également possible de noter l'utilisation de la fonction `utime()` pour identifier un environnement jailbreaké. En effet cette fonction permet de modifier les heures de dernier accès et de modification du fichier. 
 
 ![image-20241119162517514](assets/posts/IOS/utime.png)
-
-_<div style="text-align: center;">Alternative de détection de jailbreak avec utime()_</div>
+_Alternative de détection de jailbreak avec utime()_
 
 Ainsi, l'application tente de manipuler l'horodatage des fichiers de jailbreak pouvant être présents sur le système afin d'identifier leur présence.
 
@@ -88,8 +83,7 @@ Cette utilisation enfreint en principe [les politiques de publication d'applicat
 Dans notre cas, nous analysons le programme pour identifier les appels directs à l'instruction `SVC 0x80`.
 
 ![SVC_call](assets/posts/IOS/SVC_call.PNG)
-
-_<div style="text-align: center;">Utilisation des appels système via SVC_</div>
+_Utilisation des appels système via SVC_
 
 De multiples occurrences de l'appel `SVC` sont présentes dans le code, comme montré ci-dessus.
 
@@ -100,8 +94,7 @@ Pour contourner cette problématique, l'une des approches consiste à remplacer 
 L'objectif à ce stade est de dissimuler la présence des fichiers et répertoires liés au jailbreak aux appels systèmes. L’instrumentation de l’application échoue en raison de protections supplémentaires qui la détectent et bloquent son exécution.
 
 ![image-20250514101826234](assets/posts/IOS/frida.png)
-
-_<div style="text-align: center;">Logs de crash lié à Frida_</div>
+_Logs de crash lié à Frida_
 
  Une solution alternative repose sur la modification des `vnodes`. En effet, le noyau utilise des vnodes pour interagir avec le système de fichiers. En modifiant les adresses des vnodes associées aux fichiers de jailbreak, ceux-ci seront dissimulés, empêchant leur accès par le système. De plus, les appels système renverront des résultats normaux, comme "fichier inexistant".
 
@@ -114,8 +107,7 @@ Les vnodes (pour **Virtual Node**) sont des objets utilisés dans les systèmes 
 Leur fonction principale est de permettre au noyau de gérer différents types de systèmes de fichiers (locaux, réseau, ...) via une interface commune. Cela permet à une application, ou au noyau, de ne pas avoir à connaître le système de fichiers avec lequel elle interagit.  
 
 ![vnodes](assets/posts/IOS/vnodes.png)
-
-_<div style="text-align: center;">Schéma du fonctionnement des vnodes_</div>
+_Schéma du fonctionnement des vnodes_
 
 Ainsi, ils servent de point d'entrée pour des opérations telles que l'ouverture de fichiers, la lecture de répertoires ou le changement de permissions.
 
@@ -134,24 +126,22 @@ Le tweak `vnodebypass` sur iOS est conçu pour contourner les mécanismes de dé
 Tout d'abord, `vnodebypass` repose sur une liste de fichiers et de répertoires à énumérer, située à l'emplacement `/usr/share/{process_name}/hidePathList.plist`. Par défaut, cette liste contient 70 chemins liés au jailbreak que le tweak cherche à dissimuler.
 
 ![image-20241122095224291](assets/posts/IOS/hidePath.png)
-
-_<div style="text-align: center;">Extrait du contenu de hidePathList.plist_</div>
+_Extrait du contenu de hidePathList.plist_
 
 Pour fonctionner, l'application `vnodebypass` utilise deux fonctions principales.
 
 La première, `save_vnode()`, commence par parcourir les vnodes répertoriés dans le fichier `hidePathList.plist`.
 
 ![image-20241122104839068](assets/posts/IOS/save_vnode.png)
+_extrait du code de save_vnode()_
 
-_<div style="text-align: center;">extrait du code de save_vnode()_</div>
 
 La fonction crée alors un fichier temporaire à l'emplacement `/tmp/vnodeMem.txt`. Elle procède ensuite à l'énumération des différents chemins listés dans `hidePathList.plist` que `vnodebypass` souhaite dissimuler. Le tweak résout l'adresse des chemins présents dans `hidePathList.plist` à l'aide de la fonction `get_vnode_with_file_index()`, puis les sauvegarde dans le fichier temporaire `/tmp/vnodeMem.txt`.
 
 La seconde fonction, `hidevnode()`, récupère chaque adresse de vnode, une par une, à partir du fichier `/tmp/vnodeMem.txt`, et exécute la fonction `hide_path()` pour chacune d'entre elles.
 
 ![image-20241120162956236](assets/posts/IOS/vishadow.png)
-
-_<div style="text-align: center;">Utilisation de la fonction hide_path()_</div>
+_Utilisation de la fonction hide_path()_
 
 La fonction `hide_path()` lit en mémoire la valeur du champ `v_flag` du vnode qui lui est transmis.
 
@@ -172,8 +162,7 @@ En parallèle, nous avons également cherché à identifier plusieurs listes noi
 Au terme de nos recherches, nous avons réussi à répertorier plus de 400 éléments uniques potentiellement liés au jailbreak, que nous avons ajoutés au fichier `hidePathList.plist`. Cela permet une dissimulation des vnodes plus large et optimisée, tout en veillant à préserver la fiabilité du système. En effet, les vnodes, étant des objets critiques du noyau, ils doivent être modifiés avec prudence pour éviter tout risque pour le système.
 
 ![path_hidepath](assets/posts/IOS/path_hidepath.png)
-
-_<div style="text-align: center;">Modification de la liste des vnodes sur l'appareil_</div>
+_Modification de la liste des vnodes sur l'appareil_
 
 Ainsi, après avoir modifié la liste sur notre appareil et exécuté le tweak `vnodebypass`, notre application de test a pu se lancer avec succès dans l'environnement jailbreaké. De plus, toutes les applications installées parallèlement permettant d'évaluer la détection de jailbreak (telles que Pokémon Go, HSBC UK, PayPal, etc.) ont également pu être contournées grâce à cette modification du tweak.
 
@@ -182,8 +171,7 @@ En effet, dans sa configuration par défaut, `vnodebypass` ne permettait pas de 
 Désormais, il nous est possible d'exécuter notre application cible dans un environnement jailbreaké et d'exercer des actions tel qu'un dump de la mémoire du processus. 
 
 ![image-20241121113823653](assets/posts/IOS/dump.png)
-
-_<div style="text-align: center;">Dump mémoire du processus_</div>
+_<Dump mémoire du processus_
 
 Cette extraction permet d'accéder à de nombreuses informations sensibles, y compris des données déchiffrées de l'application.
 
@@ -198,5 +186,4 @@ Enfin, vous trouverez en annexe une liste non exhaustives de certaines valeurs r
 #### Annexe
 
 ![image-20241120171906072](assets/posts/IOS/annexe.png)
-
-_<div style="text-align: center;">Fichiers et répertoires utilisés pour la détection de jailbreak_</div>
+_Fichiers et répertoires utilisés pour la détection de jailbreak_
