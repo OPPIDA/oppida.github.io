@@ -52,7 +52,7 @@ _Analyse des méthodes avec l'outil pagestuff_
 
 Ces chaines sont déchiffrées à la volée uniquement au moment de leurs utilisations. Le binaire ne révèle aucune chaîne intéressante pouvant nous aider à identifier les mécanismes de détection de jailbreak.
 
-Les différentes fonctions de sécurités mise en place sont donc complémentaire. D'une part, l'obfuscation statique empêche d'accéder aux chaînes de caractères. D'autre part, les mécanismes de protections empêche l'analyse dynamique et provoquent immédiatement le crash de l'application,  ce qui nous empêche de récupérer le contenu de la mémoire du processus et d'y retrouver les chaînes déchiffrées.
+Les différentes fonctions de sécurités mises en place sont donc complémentaire. D'une part, l'obfuscation statique empêche d'accéder aux chaînes de caractères. D'autre part, les mécanismes de protections empêche l'analyse dynamique et provoquent immédiatement le crash de l'application,  ce qui nous empêche de récupérer le contenu de la mémoire du processus et d'y retrouver les chaînes déchiffrées.
 
 ### Identification des protections anti-jailbreak
 
