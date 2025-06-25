@@ -3,7 +3,7 @@ layout: post
 author: [NRO]
 title: "Analyse d'une application sécurisée par un RASP [PART.1]"
 date: 2025-06-25
-categories: [Articles, Reverse]
+categories: [Articles, Mobile]
 image: assets/IOS.png
 title_color: "#ffffff"
 ---
