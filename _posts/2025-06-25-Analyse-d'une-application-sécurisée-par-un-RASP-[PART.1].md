@@ -133,7 +133,7 @@ Pour fonctionner, l'application `vnodebypass` utilise deux fonctions principales
 La première, `save_vnode()`, commence par parcourir les vnodes répertoriés dans le fichier `hidePathList.plist`.
 
 ![image-20241122104839068](assets/posts/IOS/save_vnode.png)
-_extrait du code de save_vnode()_
+_Extrait du code de save_vnode()_
 
 
 La fonction crée alors un fichier temporaire à l'emplacement `/tmp/vnodeMem.txt`. Elle procède ensuite à l'énumération des différents chemins listés dans `hidePathList.plist` que `vnodebypass` souhaite dissimuler. Le tweak résout l'adresse des chemins présents dans `hidePathList.plist` à l'aide de la fonction `get_vnode_with_file_index()`, puis les sauvegarde dans le fichier temporaire `/tmp/vnodeMem.txt`.
@@ -171,7 +171,7 @@ En effet, dans sa configuration par défaut, `vnodebypass` ne permettait pas de 
 Désormais, il nous est possible d'exécuter notre application cible dans un environnement jailbreaké et d'exercer des actions tel qu'un dump de la mémoire du processus. 
 
 ![image-20241121113823653](assets/posts/IOS/dump.png)
-_<Dump mémoire du processus_
+_Dump mémoire du processus_
 
 Cette extraction permet d'accéder à de nombreuses informations sensibles, y compris des données déchiffrées de l'application.
 
