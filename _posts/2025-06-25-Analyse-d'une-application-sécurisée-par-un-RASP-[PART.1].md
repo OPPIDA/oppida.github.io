@@ -34,7 +34,7 @@ _Extrait du fichier des journaux de crash_
 
 Il apparaît que l'application a tenté d'accéder à l'adresse mémoire `0x00`, une pratique couramment utilisée par les applications pour terminer leur exécution. Le programme tente délibérément d'écrire dans des zones de mémoire incorrectes.
 
-De plus, une analyse dynamique des logs systèmes est effectuée. On remarquer que l'application vérifie la présence de fichiers liés au jailbreak.
+De plus, une analyse dynamique des logs systèmes est effectuée. On remarque que l'application vérifie la présence de fichiers liés au jailbreak.
 
 ![image-20250507151756144](assets/posts/IOS/log-jb.png)
 _Extrait de logs_
