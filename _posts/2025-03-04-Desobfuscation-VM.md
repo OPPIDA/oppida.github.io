@@ -36,7 +36,7 @@ Voici une méthodologie globale :
 Dans cet article, nous détaillerons **les deux dernières étapes**, en partant de l'exemple d'une obfuscation par VM simple conçue pour un challenge du stand Oppida à l'ECW.
 
 ## Le cas d'étude : Challenge d'Oppida sur le stand de l'European Cyber Week.
-A titre d'**exemple d'implémentation des outils d'analyse**, nous mettons en oeuvre la méthodologie décrite par l'article sur un challenge créé par Oppida. C'est un logiciel obfusqué par VM compilé pour une architecture ARM. Si vous voulez tenter de résoudre le challenge, vous pouvez télécharger le binaire ici : [LIEN CHALLENGE OPPIDA ECW]({{ site.url }}/assets/posts/2025-03-04-Desobfuscation-VM/challenge-oppida.html). Ce binaire est conçu pour s'exécuter sur une RaspberryPi branchée sur une installation physique : considérez simplement que le challenge est résolu si la fonction main renvoie 0.
+A titre d'**exemple d'implémentation des outils d'analyse**, nous mettons en oeuvre la méthodologie décrite par l'article sur un challenge créé par Oppida. C'est un logiciel obfusqué par VM compilé pour une architecture ARM. Si vous voulez tenter de résoudre le challenge, vous pouvez télécharger le binaire ici : [LIEN CHALLENGE OPPIDA ECW]({{ site.url }}/assets/posts/2025-03-04-Desobfuscation-VM/challenge-oppida). Ce binaire est conçu pour s'exécuter sur une RaspberryPi branchée sur une installation physique : considérez simplement que le challenge est résolu si la fonction main renvoie 0.
 
 Nous allons passer très rapidement sur l'étape 1) d'analyse initiale . Il s'agit de faire une analyse statique (puisque c'est la seule technique à notre disposition à cette étape) du fonctionnement interne de la VM.
 
